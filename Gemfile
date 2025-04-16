@@ -69,3 +69,5 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
 end
+
+gem "htmlbeautifier", "~> 1.4"

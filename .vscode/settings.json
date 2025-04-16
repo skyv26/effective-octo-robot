@@ -1,0 +1,12 @@
+{
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "class\\s*=\\s*\"([^\"]*)\"",
+      1
+    ],
+    [
+      "class:\\s*\"([^\"]*)\"",
+      1
+    ]
+  ]
+}

@@ -1,35 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - My App</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - My App</title>
 
-  <!-- Add your CSS, JS, and other assets here -->
-  <%= stylesheet_link_tag 'application', 'tailwind', media: 'all' %> <!-- Your Tailwind CSS -->
-  <%= javascript_include_tag 'application' %> <!-- Your JS imports -->
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <header>
-    <!-- Navigation bar, logo, etc. -->
-    <h1 class="text-red-500">Welcome to the Dashboard</h1>
-  </header>
+    <!-- Add your CSS, JS, and other assets here -->
+    <%= stylesheet_link_tag 'application', 'tailwind', media: 'all' %>
+    <!-- Your Tailwind CSS -->
+    <%= javascript_include_tag 'application' %>
+    <!-- Your JS imports -->
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header class="flex items-center justify-between px-6 py-3 bg-white shadow-md">
+      <a
+        class="flex items-center text-2xl gap-1 font-bold text-gray-800"
+        href="/"
+      >
+        <div class="size-8 flex items-center justify-center rounded-md bg-[#1A5F7A]">
+          <span class="text-white">H</span>
+        </div>
+        HealthHub
+      </a>
 
-  <nav>
-    <!-- Navigation links -->
-  </nav>
+      <div class="flex items-center gap-2">
+        <div class="bg-[#1A5F7A] rounded-full size-12 flex items-center justify-center">
+          <span class="text-white">JD</span>
+        </div>
+        <div class="text-base text-black font-semibold flex flex-col gap-0.5">Jane Doe
+        
+        <span class="text-sm font-medium text-slate-600">Receptionist</span>
+        </div>
+      </div>
+    </header>
 
-  <div class="content">
-    <%= yield %> <!-- The content from the view (index.html.erb) will be inserted here -->
-  </div>
+    <nav>
+      <!-- Navigation links -->
+    </nav>
 
-  <footer>
-    <!-- Footer content -->
-    <p>&copy; 2025 My Company</p>
-  </footer>
+    <div class="content">
+      <%= yield %>
+      <!-- The content from the view (index.html.erb) will be inserted here -->
+    </div>
 
-  <!-- Add additional scripts or any needed JavaScript files -->
-  <%= javascript_include_tag 'application' %> <!-- Repeated, but optional depending on needs -->
-</body>
+    <footer>
+      <!-- Footer content -->
+      <p>&copy; 2025 My Company</p>
+    </footer>
+
+    <!-- Add additional scripts or any needed JavaScript files -->
+    <%= javascript_include_tag 'application' %>
+    <!-- Repeated, but optional depending on needs -->
+  </body>
 </html>
