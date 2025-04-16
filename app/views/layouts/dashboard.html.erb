@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - My App</title>
+
+  <!-- Add your CSS, JS, and other assets here -->
+  <%= stylesheet_link_tag 'application', 'tailwind', media: 'all' %> <!-- Your Tailwind CSS -->
+  <%= javascript_include_tag 'application' %> <!-- Your JS imports -->
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+    <!-- Navigation bar, logo, etc. -->
+    <h1 class="text-red-500">Welcome to the Dashboard</h1>
+  </header>
+
+  <nav>
+    <!-- Navigation links -->
+  </nav>
+
+  <div class="content">
+    <%= yield %> <!-- The content from the view (index.html.erb) will be inserted here -->
+  </div>
+
+  <footer>
+    <!-- Footer content -->
+    <p>&copy; 2025 My Company</p>
+  </footer>
+
+  <!-- Add additional scripts or any needed JavaScript files -->
+  <%= javascript_include_tag 'application' %> <!-- Repeated, but optional depending on needs -->
+</body>
+</html>
