@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+table, tr, th, td {
+    @apply border p-4 border-slate-500;
+ }
+
+ table {
+    @apply overflow-hidden
+ }
+
