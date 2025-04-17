@@ -4,53 +4,114 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - My App</title>
+    
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags  %>
 
-    <!-- Add your CSS, JS, and other assets here -->
-    <%= stylesheet_link_tag 'application', 'tailwind', media: 'all' %>
-    <!-- Your Tailwind CSS -->
-    <%= javascript_include_tag 'application' %>
-    <!-- Your JS imports -->
     <%= csrf_meta_tags %>
   </head>
-  <body>
-    <header class="flex items-center justify-between px-6 py-3 bg-white shadow-md">
-      <a
-        class="flex items-center text-2xl gap-1 font-bold text-gray-800"
-        href="/"
-      >
-        <div class="size-8 flex items-center justify-center rounded-md bg-[#1A5F7A]">
-          <span class="text-white">H</span>
-        </div>
-        HealthHub
-      </a>
+ <!-- app/views/layouts/application.html.erb -->
+<body>
+  <div data-controller="sidebar" class="min-h-screen flex flex-col bg-gray-50">
 
+    <!-- Header -->
+    <header class="flex items-center justify-between px-4 py-3 bg-white shadow-md relative z-50">
       <div class="flex items-center gap-2">
+        <!-- Logo (always visible) -->
+        <a href="/" class="flex items-center text-2xl gap-1 font-bold text-gray-800">
+          <div class="size-8 flex items-center justify-center rounded-md bg-[#1A5F7A]">
+            <span class="text-white">H</span>
+          </div>
+          <span class="hidden sm:inline">HealthHub</span>
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <button
+        data-action="click->sidebar#toggle"
+        class="sm:hidden p-2"
+        aria-label="Toggle Menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 text-gray-800 transition-transform duration-200"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          data-sidebar-target="icon"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+       <!-- User Info -->
+      <div class="hidden sm:flex items-center gap-2">
         <div class="bg-[#1A5F7A] rounded-full size-12 flex items-center justify-center">
           <span class="text-white">JD</span>
         </div>
-        <div class="text-base text-black font-semibold flex flex-col gap-0.5">Jane Doe
-        
-        <span class="text-sm font-medium text-slate-600">Receptionist</span>
+        <div class="text-base text-black font-semibold flex flex-col gap-0.5">
+          Jane Doe
+          <span class="text-sm font-medium text-slate-600">Receptionist</span>
         </div>
       </div>
     </header>
 
-    <nav>
-      <!-- Navigation links -->
-    </nav>
+    <!-- Sidebar (desktop only) -->
+    <div class="flex flex-1">
+      <aside class="hidden sm:flex sm:flex-col w-64 bg-slate-100 p-4">
+        <ul class="space-y-2 mt-4">
+          <li><a href="#" class="block p-2 hover:bg-gray-200 rounded">Dashboard</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-200 rounded">Appointments</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-200 rounded">Patients</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-200 rounded">Schedule</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-200 rounded">Reports</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-200 rounded">Settings</a></li>
+        </ul>
+      </aside>
 
-    <div class="content">
-      <%= yield %>
-      <!-- The content from the view (index.html.erb) will be inserted here -->
+      <!-- Main Content -->
+      <main class="flex-1 p-6 overflow-y-auto">
+        <%= yield %>
+      </main>
     </div>
 
-    <footer>
-      <!-- Footer content -->
-      <p>&copy; 2025 My Company</p>
-    </footer>
+    <!-- Mobile Menu (full screen overlay) -->
+    <div
+      data-sidebar-target="menu"
+      class="fixed inset-0 z-40 bg-white transform -translate-x-full transition-transform duration-300 sm:hidden"
+    >
+      <div class="flex flex-col p-4 mt-16 gap-2 relative h-full">
+        <ul class="space-y-4">
+          <li><a href="#" class="block p-2 text-lg text-gray-700 hover:bg-gray-100 rounded">Dashboard</a></li>
+          <li><a href="#" class="block p-2 text-lg text-gray-700 hover:bg-gray-100 rounded">Appointments</a></li>
+          <li><a href="#" class="block p-2 text-lg text-gray-700 hover:bg-gray-100 rounded">Patients</a></li>
+          <li><a href="#" class="block p-2 text-lg text-gray-700 hover:bg-gray-100 rounded">Schedule</a></li>
+          <li><a href="#" class="block p-2 text-lg text-gray-700 hover:bg-gray-100 rounded">Reports</a></li>
+          <li><a href="#" class="block p-2 text-lg text-gray-700 hover:bg-gray-100 rounded">Settings</a></li>
+        </ul>
+        <div class="absolute items-center flex gap-2 bottom-[calc(5rem)]">
+          <div class="bg-[#1A5F7A] rounded-full size-12 flex items-center justify-center">
+            <span class="text-white">JD</span>
+          </div>
+          <div class="text-base text-black font-semibold flex flex-col gap-0.5">
+            Jane Doe
+            <span class="text-sm font-medium text-slate-600">Receptionist</span>
+          </div>
+        </div>
+    </header>
+      </div>
+    </div>
 
-    <!-- Add additional scripts or any needed JavaScript files -->
-    <%= javascript_include_tag 'application' %>
-    <!-- Repeated, but optional depending on needs -->
-  </body>
+    <!-- Backdrop -->
+    <div
+      data-sidebar-target="backdrop"
+      data-action="click->sidebar#toggle"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 lg:hidden"
+    ></div>
+
+  </div>
+</body>
+
+
+
 </html>
