@@ -168,5 +168,3 @@ If you like this project, please ⭐️ the repository and share your thoughts!
 This project is [MIT](./LICENSE) licensed.
 
 ---
-
-Let me know if you'd like to include screenshots, an architecture diagram, or more setup tips!
