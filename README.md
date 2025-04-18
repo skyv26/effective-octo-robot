@@ -91,8 +91,8 @@ To get a local copy up and running, follow these steps.
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/rails-receptionist-doctor-portal.git
-cd rails-receptionist-doctor-portal
+git clone https://github.com/skyv26/effective-octo-robot.git
+cd effective-octo-robot
 ```
 
 ---
