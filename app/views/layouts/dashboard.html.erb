@@ -16,8 +16,15 @@
 <!-- app/views/layouts/application.html.erb -->
 
 <body>
-  <div data-controller="sidebar" class="h-screen overflow-hidden flex flex-col bg-gray-50">
+  <div data-controller="sidebar" class="h-screen overflow-hidden relative flex flex-col bg-gray-50">
+    <%= turbo_frame_tag "flash" do %>
+  <% if flash[:notice] %>
+    <div class="mb-4 p-3 bg-green-100 text-green-800 rounded-md">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
 
+<% end %>
     <!-- Header -->
    <header class="flex items-center justify-between px-4 py-3 bg-white shadow-md relative z-50">
   <div class="flex items-center gap-2">

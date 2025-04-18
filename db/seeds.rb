@@ -30,8 +30,6 @@ genders = ['Male', 'Female', 'Other']
   )
 end
 
-require 'faker'
-
 puts "Seeding users..."
 
 # Create Superadmin
