@@ -1,7 +1,3 @@
-Here’s your customized `README.md` file based on the details of your Rails 7+ project:
-
----
-
 # 🏥 Receptionist & Doctor Portal App <a name="about-project"></a>
 
 > A modern web application built with **Ruby on Rails 7+**, providing a unified portal for **Receptionists** and **Doctors** to manage and visualize patient data effectively. The app demonstrates robust authentication, role-based access, and real-time interactions using **Turbo Streams**, while offering a responsive, dockerized development environment.
