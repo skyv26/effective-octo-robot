@@ -70,4 +70,6 @@ group :development do
   gem 'rack-livereload'
 end
 
-gem "htmlbeautifier", "~> 1.4"
+group :development, :test do
+  gem 'faker'
+end

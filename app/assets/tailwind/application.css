@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
-table, tr, th, td {
+table {
+   @apply overflow-hidden;
+}
+
+tr, th, td {
     @apply border p-4 border-slate-500;
  }
 
- table {
-    @apply overflow-hidden
+ .active-nav {
+   @apply bg-[#1A5F7A] text-white;
  }
-

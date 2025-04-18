@@ -1,0 +1,59 @@
+<%= form_with model: patient, data: { turbo_frame: "_top" } do |f| %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "w-full border px-3 py-2 rounded", readonly: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :age %>
+      <%= f.number_field :age, class: "w-full border px-3 py-2 rounded", readonly: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :gender %>
+      <%= f.select :gender, ['Male', 'Female', 'Other'], {}, class: "w-full border px-3 py-2 rounded", disabled: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :blood_group %>
+      <%= f.select :blood_group, ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'], {}, class: "w-full border px-3 py-2 rounded", disabled: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :phone %>
+      <%= f.telephone_field :phone, class: "w-full border px-3 py-2 rounded", readonly: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "w-full border px-3 py-2 rounded", readonly: readonly %>
+    </div>
+
+    <div class="md:col-span-2">
+      <%= f.label :address %>
+      <%= f.text_area :address, class: "w-full border px-3 py-2 rounded", readonly: readonly, rows: 2 %>
+    </div>
+
+    <div class="md:col-span-2">
+      <%= f.label :medical_history %>
+      <%= f.text_area :medical_history, class: "w-full border px-3 py-2 rounded", readonly: readonly, rows: 3 %>
+    </div>
+
+    <div class="md:col-span-2">
+      <%= f.label :allergies %>
+      <%= f.text_area :allergies, class: "w-full border px-3 py-2 rounded", readonly: readonly, rows: 2 %>
+    </div>
+
+    <div class="md:col-span-2">
+      <%= f.label :emergency_contact %>
+      <%= f.text_field :emergency_contact, class: "w-full border px-3 py-2 rounded", readonly: readonly %>
+    </div>
+
+    <% unless readonly %>
+      <div class="md:col-span-2 text-right">
+        <%= f.submit "Save", class: "bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
