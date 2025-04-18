@@ -8,9 +8,10 @@ export default class extends Controller {
     console.log("Patient controller connected")
   }
 
-  openNewModal() {
-    this.modalTitleTarget.textContent = "Add New Patient"
-    fetch("/patients/new", { headers: { Accept: "text/vnd.turbo-stream.html" } })
+  new(event) {
+    const id = event.currentTarget.dataset.id
+    this.modalTitleTarget.textContent = "New Patient"
+    fetch(`/patient/new`, { headers: { Accept: "text/vnd.turbo-stream.html" } })
       .then((r) => r.text())
       .then((html) => {
         this.modalContentTarget.innerHTML = html

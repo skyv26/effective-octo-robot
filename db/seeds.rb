@@ -15,29 +15,46 @@ blood_groups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
 genders = ['Male', 'Female', 'Other']
 
 # Create 120 patients with random dates between Jan and Apr 2025
-# 120.times do
-#   random_created_at = Faker::Time.between_dates(
-#     from: Date.new(2025, 1, 1),
-#     to: Date.new(2025, 4, 15),
-#     period: :day
-#   )
+120.times do
+  random_created_at = Faker::Time.between_dates(
+    from: Date.new(2025, 1, 1),
+    to: Date.new(2025, 4, 15),
+    period: :day
+  )
 
-#   Patient.create!(
-#     name: Faker::Name.name,
-#     age: rand(1..90),
-#     gender: genders.sample,
-#     phone: Faker::PhoneNumber.cell_phone_in_e164,
-#     email: Faker::Internet.unique.email,
-#     blood_group: blood_groups.sample,
-#     address: Faker::Address.full_address,
-#     medical_history: Faker::Lorem.paragraph(sentence_count: 3),
-#     allergies: Faker::Lorem.words(number: 3).join(', '),
-#     emergency_contact: Faker::PhoneNumber.phone_number,
-#     avatar_url: Faker::Avatar.image(slug: Faker::Internet.slug, size: "100x100", format: "png", set: "set2"),
-#     created_at: random_created_at,
-#     updated_at: random_created_at
-#   )
-# end
+  Patient.create!(
+    name: Faker::Name.name,
+    age: rand(1..90),
+    gender: genders.sample,
+    phone: Faker::PhoneNumber.cell_phone_in_e164,
+    email: Faker::Internet.unique.email,
+    blood_group: blood_groups.sample,
+    address: Faker::Address.full_address,
+    medical_history: Faker::Lorem.paragraph(sentence_count: 3),
+    allergies: Faker::Lorem.words(number: 3).join(', '),
+    emergency_contact: Faker::PhoneNumber.phone_number,
+    avatar_url: Faker::Avatar.image(slug: Faker::Internet.slug, size: "100x100", format: "png", set: "set2"),
+    created_at: random_created_at,
+    updated_at: random_created_at
+  )
+end
+
+120.times do
+  Patient.create!(
+    name: Faker::Name.name,
+    age: rand(1..90),
+    gender: genders.sample,
+    phone: Faker::PhoneNumber.cell_phone_in_e164,
+    email: Faker::Internet.unique.email,
+    blood_group: blood_groups.sample,
+    address: Faker::Address.full_address,
+    medical_history: Faker::Lorem.paragraph(sentence_count: 3),
+    allergies: Faker::Lorem.words(number: 3).join(', '),
+    emergency_contact: Faker::PhoneNumber.phone_number,
+    avatar_url: Faker::Avatar.image(slug: Faker::Internet.slug, size: "100x100", format: "png", set: "set2"),
+  )
+end
+
 
 puts "Seeding users..."
 
@@ -49,7 +66,8 @@ User.create!(
   role: "superadmin",
   address: Faker::Address.full_address,
   phone: Faker::PhoneNumber.cell_phone_in_e164,
-  designation: "Superadmin"
+  designation: "Superadmin",
+  photo: Faker::Avatar.image(slug: Faker::Internet.slug, size: "100x100", format: "png", set: "set2"),
 )
 
 # # Create Admin
@@ -60,7 +78,8 @@ User.create!(
   role: "admin",
   address: Faker::Address.full_address,
   phone: Faker::PhoneNumber.cell_phone_in_e164,
-  designation: "Admin"
+  designation: "Admin",
+  photo: Faker::Avatar.image(slug: Faker::Internet.slug, size: "100x100", format: "png", set: "set2"),
 )
 
 # Create Receptionists
@@ -70,9 +89,11 @@ User.create!(
     email: Faker::Internet.unique.email,
     password: "password",
     role: "receptionist",
+    
     address: Faker::Address.full_address,
     phone: Faker::PhoneNumber.cell_phone_in_e164,
-    designation: "Receptionist"
+    designation: "Receptionist",
+    photo: Faker::Avatar.image(slug: Faker::Internet.slug, size: "100x100", format: "png", set: "set2"),
   )
 end
 
@@ -85,7 +106,8 @@ end
     role: "doctor",
     address: Faker::Address.full_address,
     phone: Faker::PhoneNumber.cell_phone_in_e164,
-    designation: "Doctor"
+    designation: "Doctor",
+    photo: Faker::Avatar.image(slug: Faker::Internet.slug, size: "100x100", format: "png", set: "set2"),
   )
 end
 

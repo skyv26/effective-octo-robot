@@ -3,8 +3,6 @@
     <div class="rounded-lg shadow p-5 bg-white">
       <h1 class="text-2xl sm:text-3xl">Hi! Jane, hope you’re having a great day! 👋</h1>
     </div>
-    <%= line_chart @patients_data, xtitle: "Date", ytitle: "Number of Patients" %>
-
 
     <!-- Statistics Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-14">
@@ -21,7 +19,7 @@
         </div>
         <div>
           <strong class="flex flex-col gap-2 text-3xl sm:text-4xl">
-            24
+            <%= @patient_today.count %>
             <span class="text-base text-slate-500 font-normal">Registered Today</span>
           </strong>
         </div>
@@ -40,7 +38,7 @@
         </div>
         <div>
           <strong class="flex flex-col gap-2 text-3xl sm:text-4xl">
-            12
+            <%= @doctor.count %>
             <span class="text-base text-slate-500 font-normal">Doctor Available</span>
           </strong>
         </div>
@@ -58,68 +56,92 @@
         </div>
         <div>
           <strong class="flex flex-col gap-2 text-3xl sm:text-4xl">
-            15
+            <%= @patient_this_week.count %>
             <span class="text-base text-slate-500 font-normal">Registered This Week</span>
           </strong>
         </div>
       </div>
     </div>
+
+
+    <% if current_user.role.in?(['doctor', 'admin', 'superadmin']) %>
+      <%= line_chart @patients_data, xtitle: "Date", ytitle: "Number of Patients" %>
+    <% end %>
   
     <!-- Doctors List Table -->
-    <div class="p-4 sm:p-6 rounded-2xl flex flex-col gap-4 bg-white">
-      <h2 class="text-lg sm:text-xl font-bold">Doctors List</h2>
-      <div class="overflow-x-auto rounded-xl border shadow-sm">
-        <table class="w-full min-w-[640px] text-sm sm:text-base border-collapse">
-          <thead class="bg-gray-100">
-            <tr class="text-left">
-              <th class="p-4">Doctor ID</th>
-              <th class="p-4">Detail</th>
-              <th class="p-4">Today Present</th>
-              <th class="p-4">Contact No</th>
-              <th class="p-4">Email Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="hover:bg-gray-50">
-              <td class="p-4">12515</td>
-              <td class="p-4">
-                <div class="flex items-center gap-4">
-                  <div class="w-14 h-14 rounded-full bg-slate-400"></div>
-                  <b class="flex text-base sm:text-lg flex-col">
-                    Emma Thompson
-                    <span class="text-slate-400 text-sm sm:text-base font-normal">PT-2024-001</span>
-                  </b>
-                </div>
-              </td>
-              <td class="p-4">true</td>
-              <td class="p-4">+1 (555) 123-4567</td>
-              <td class="p-4">emma.thompson@example.com</td>
-            </tr>
-            <!-- More rows... -->
-          </tbody>
-        </table>
+    <% if current_user.role.in?(['receptionist', 'admin', 'superadmin']) %> 
+      <div class="p-4 sm:p-6 rounded-2xl flex flex-col gap-4 bg-white">
+        <h2 class="text-lg sm:text-xl font-bold">Doctors List</h2>
+        <div class="overflow-x-auto rounded-xl border shadow-sm">
+          <table class="w-full min-w-[640px] text-sm sm:text-base border-collapse">
+            <thead class="bg-gray-100">
+              <tr class="text-left">
+                <th class="p-4">Doctor ID</th>
+                <th class="p-4">Detail</th>
+                <th class="p-4">Contact No</th>
+                <th class="p-4">Email Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @doctor.each do |doctor| %>
+                <tr class="hover:bg-gray-50">
+                  <td class="p-4"><%= doctor.user_code %></td>
+
+                  <td class="p-4">
+                    <div class="flex items-center gap-4">
+                      <div class="w-14 h-14 rounded-full bg-slate-400 overflow-hidden">
+                        <% if doctor.photo.present? %>
+                          <img src="<%= doctor.photo %>" alt="<%= doctor.name %>" class="w-full h-full object-cover rounded-full" />
+                        <% end %>
+                      </div>
+                      <b class="flex text-base sm:text-lg flex-col">
+                        <%= doctor.name %>
+                        <span class="text-slate-400 text-sm sm:text-base font-normal">
+                          DR-<%= doctor.id.to_s.rjust(4, '0') %>
+                        </span>
+                      </b>
+                    </div>
+                  </td>
+
+                  <td class="p-4"><%= doctor.phone %></td>
+                  <td class="p-4"><%= doctor.email %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    <% end %>
   
     <!-- Recent Registered Patients -->
     <div class="p-4 sm:p-6 rounded-2xl bg-white flex flex-col gap-4">
       <h2 class="text-lg sm:text-xl font-bold">Recent Registered Patients</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 xl:gap-10">
-        <!-- Card -->
-        <div class="border rounded-md p-4 flex flex-col gap-4">
-          <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-slate-400"></div>
-            <b class="flex text-base sm:text-lg flex-col">
-              Emma Thompson
-              <span class="text-slate-400 text-sm sm:text-base font-normal">PT-2024-001</span>
-            </b>
-          </div>
-          <strong class="text-slate-400 font-medium text-sm sm:text-base">
-            Registration Time: Jan 15, 2024
-          </strong>
+     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 xl:gap-10">
+  <% @patient_recent.each do |patient| %>
+    <div class="border rounded-md p-4 flex flex-col gap-4">
+      <div class="flex items-center gap-4">
+        <!-- Avatar -->
+        <div class="w-14 h-14 rounded-full bg-slate-400">
+          <img src="<%= patient.avatar_url %>" alt="Avatar" class="w-full h-full object-cover rounded-full" />
         </div>
-        <!-- Repeat cards as needed -->
+        
+        <!-- Patient Info -->
+        <b class="flex text-base sm:text-lg flex-col">
+          <%= patient.name %>
+          <span class="text-slate-400 text-sm sm:text-base font-normal">
+            PT-<%= patient.id %> <!-- You can format this as needed -->
+          </span>
+        </b>
       </div>
+      
+      <!-- Registration Time -->
+      <strong class="text-slate-400 font-medium text-sm sm:text-base">
+        Registration Time: <%= patient.created_at.strftime("%b %d, %Y") %>
+      </strong>
+    </div>
+  <% end %>
+</div>
+
     </div>
   </div>
   

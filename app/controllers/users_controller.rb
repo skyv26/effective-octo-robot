@@ -87,7 +87,7 @@ class UsersController < ApplicationController
     end
   
     def user_params
-        permitted = %i[name email phone_number address profile_photo password password_confirmation]
+        permitted = %i[name email phone address photo password password_confirmation]
         permitted << :role if current_user.superadmin? # for admin use
         params.require(:user).permit(permitted)
       end

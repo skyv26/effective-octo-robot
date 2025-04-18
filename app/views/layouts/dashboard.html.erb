@@ -48,20 +48,17 @@
 <div class="flex items-center gap-4">
   <!-- User Info & Logout -->
   <div class="hidden sm:flex items-center gap-2">
-    <div class="bg-[#1A5F7A] rounded-full size-12 flex items-center justify-center">
-      <span class="text-white">JD</span>
+    <!-- User Avatar -->
+    <div class="bg-[hsl(197,65%,29%)] rounded-full size-12 flex items-center justify-center">
+  <img src="<%= current_user.photo.present? ? current_user.photo : default_avatar %>" alt="Avatar" class="w-full h-full object-cover rounded-full" />
     </div>
     <div class="text-base text-black font-semibold flex flex-col gap-0.5">
-      Jane Doe
-      <span class="text-sm font-medium text-slate-600">Receptionist</span>
+      <%= current_user.name %> <!-- User's full name -->
+      <span class="text-sm font-medium text-slate-600"><%= current_user.role.capitalize %></span> <!-- User's role -->
     </div>
-
-    <!-- Logout Button -->
   </div>
 </div>
 </header>
-
-
     <!-- Sidebar (desktop only) -->
     <div class="flex flex-1 overflow-hidden">
       <aside data-controller="navigation" class="hidden sm:flex sm:flex-col w-64 bg-white p-4">

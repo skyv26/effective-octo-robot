@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   get "setting/index"
 
   # Add the profile routes above users resource
-   get '/profile/edit', to: 'users#edit_profile', as: :edit_profile
-   patch '/profile', to: 'users#update_profile', as: :update_profile
+  get '/profile/edit', to: 'users#edit_profile', as: :edit_profile
+  patch '/profile', to: 'users#update_profile', as: :update_profile
  
   resources :users, except: [:show]
 

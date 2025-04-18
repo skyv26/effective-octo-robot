@@ -17,14 +17,23 @@ class PatientController < ApplicationController
     if @patient.update(patient_params)
       redirect_to @patient, notice: "Patient updated successfully."
     else
-      render :edit, locals: { patient: @patient, readonly: false }, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
   
   def new
     @patient = Patient.new
-    render locals: { patient: @patient, readonly: false }
+  end
+
+  def create
+    @patient = Patient.new(patient_params)
+  
+    if @patient.save
+      redirect_to @patient, notice: "Patient created successfully."
+    else
+      render :new, locals: { patient: @patient, readonly: false }, status: :unprocessable_entity
+    end
   end
   
   def edit
