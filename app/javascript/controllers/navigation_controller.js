@@ -17,7 +17,8 @@ export default class extends Controller {
 
     this.linkTargets.forEach(link => {
       const linkPath = new URL(link.href).pathname
-      if (linkPath === currentPath) {
+      // Check if the current path starts with the link path for patients
+      if (currentPath.startsWith(linkPath)) {
         link.classList.add("active-nav")
       } else {
         link.classList.remove("active-nav")

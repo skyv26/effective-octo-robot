@@ -7,28 +7,49 @@ class PatientController < ApplicationController
   
   def show
     @patient = Patient.find(params[:id])
-    render partial: 'form', locals: { patient: @patient, readonly: true }
+    render locals: { patient: @patient, readonly: true }
   end
+
+
+  def update
+    @patient = Patient.find(params[:id])
+
+    if @patient.update(patient_params)
+      redirect_to @patient, notice: "Patient updated successfully."
+    else
+      render :edit, locals: { patient: @patient, readonly: false }, status: :unprocessable_entity
+    end
+  end
+
   
   def new
     @patient = Patient.new
-    render partial: 'form', locals: { patient: @patient, readonly: false }
+    render locals: { patient: @patient, readonly: false }
   end
   
   def edit
     @patient = Patient.find(params[:id])
-    render partial: 'form', locals: { patient: @patient, readonly: false }
+    render locals: { patient: @patient, readonly: false }
   end
 
   def destroy
     @patient = Patient.find(params[:id])
-    
-    if @patient.destroy
-      flash[:notice] = "Patient successfully deleted."
-    else
-      flash[:alert] = "There was an issue deleting the patient."
+    @patient.destroy
+  
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove("patient_#{@patient.id}") }
+      format.html { redirect_to patients_path, notice: "Patient deleted successfully." }
     end
-    
-    redirect_to patients_path # Redirect to the index page after deletion
+  end  
+
+  private
+
+  def patient_params
+    params.require(:patient).permit(
+      :name, :age, :gender, :blood_group,
+      :phone, :email, :address, :medical_history,
+      :allergies, :emergency_contact
+    )
   end
+  
 end

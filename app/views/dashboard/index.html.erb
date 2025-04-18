@@ -3,7 +3,9 @@
     <div class="rounded-lg shadow p-5 bg-white">
       <h1 class="text-2xl sm:text-3xl">Hi! Jane, hope you’re having a great day! 👋</h1>
     </div>
-  
+    <%= line_chart @patients_data, xtitle: "Date", ytitle: "Number of Patients" %>
+
+
     <!-- Statistics Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-14">
       <!-- Box 1 -->

@@ -71,9 +71,9 @@ class UsersController < ApplicationController
           format.turbo_stream do
             # Turbo Stream to remove the user from the table
             render turbo_stream: [
-        turbo_stream.remove(@user),
-        turbo_stream.update("flash-message", partial: "shared/flash")
-      ]
+                turbo_stream.remove(@user),
+                turbo_stream.update("flash-message", partial: "shared/flash")
+            ]
           end
           format.html { redirect_to users_path, notice: 'User deleted.' }
         end
