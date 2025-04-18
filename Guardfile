@@ -30,7 +30,7 @@ guard 'livereload' do
     # less: :less, # uncomment if you want LESS stylesheets done in browser
   }
 
-  rails_view_exts = %w(erb haml slim)
+  rails_view_exts = %w(erb haml slim html)
 
   # file types LiveReload may optimize refresh for
   compiled_exts = extensions.values.uniq
@@ -49,6 +49,7 @@ guard 'livereload' do
   end
 
   # file needing a full reload of the page anyway
+  watch(%r{app/views/layouts/.*\.(#{rails_view_exts * '|'})$})
   watch(%r{app/views/.+\.(#{rails_view_exts * '|'})$})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{config/locales/.+\.yml})

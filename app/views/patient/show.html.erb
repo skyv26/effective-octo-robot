@@ -1,0 +1,62 @@
+<%= form_with model: patient, data: { turbo_frame: "_top" }, class: "max-w-5xl mx-auto mt-10 bg-gradient-to-br from-white via-gray-50 to-blue-50 shadow-xl rounded-2xl p-8" do |f| %>
+  <h2 class="text-3xl font-bold text-blue-800 mb-6">🩺 Edit Patient Details</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <%= f.label :name, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.text_field :name, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", readonly: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :age, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.number_field :age, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", readonly: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :gender, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.select :gender, ['Male', 'Female', 'Other'], {}, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", disabled: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :blood_group, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.select :blood_group, ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'], {}, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", disabled: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :phone, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.telephone_field :phone, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", readonly: readonly %>
+    </div>
+
+    <div>
+      <%= f.label :email, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.email_field :email, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", readonly: readonly %>
+    </div>
+
+    <div class="md:col-span-2">
+      <%= f.label :address, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.text_area :address, rows: 2, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", readonly: readonly %>
+    </div>
+
+    <div class="md:col-span-2">
+      <%= f.label :medical_history, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.text_area :medical_history, rows: 3, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", readonly: readonly %>
+    </div>
+
+    <div class="md:col-span-2">
+      <%= f.label :allergies, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.text_area :allergies, rows: 2, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", readonly: readonly %>
+    </div>
+
+    <div class="md:col-span-2">
+      <%= f.label :emergency_contact, class: "block text-sm font-semibold text-gray-700 mb-1" %>
+      <%= f.text_field :emergency_contact, class: "w-full border border-gray-300 bg-white px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400", readonly: readonly %>
+    </div>
+  </div>
+
+  <% unless readonly %>
+    <div class="flex justify-end items-center gap-4 mt-8">
+      <%= link_to "Cancel", patient_path, class: "text-gray-700 hover:underline text-sm" %>
+      <%= f.submit "Save", class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition duration-200 shadow-md" %>
+    </div>
+  <% end %>
+<% end %>

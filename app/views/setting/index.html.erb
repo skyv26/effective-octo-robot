@@ -1,0 +1,109 @@
+<div data-controller="tabs" class="p-6 relative">
+  <!-- Tabs -->
+  <div class="flex space-x-4 mb-6 border-b">
+    <button data-action="tabs#switch" data-tabs-target="tab" data-tabs-name="profile"
+      class="py-2 px-4 border-b-2 font-semibold border-blue-500 text-blue-500">Profile Settings</button>
+    <% if current_user.superadmin? || current_user.admin? %>
+      <button data-action="tabs#switch" data-tabs-target="tab" data-tabs-name="manage_users"
+        class="py-2 px-4 border-b-2 font-semibold text-gray-600 hover:text-blue-500 hover:border-blue-500">Manage
+        Users</button>
+    <% end %>
+  </div>
+
+  <!-- Flash Message -->
+  <% if flash[:notice] %>
+    <div id="flash-message" class="mb-4 p-3 bg-green-100 text-green-800 rounded-md">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <!-- Tab Content -->
+  <div class="space-y-6">
+    <!-- Profile Settings -->
+    <div data-controller="profile" data-tabs-target="content" data-tabs-name="profile">
+      <h2 class="text-2xl font-bold mb-6 text-gray-800">Edit My Profile</h2>
+
+      <%= form_with(model: current_user, url: update_profile_path, method: :patch, data: { turbo_frame: "flash" }, html: { multipart: true }) do |f| %>
+        <div class="grid md:grid-cols-1 gap-6">
+          <div>
+            <%= f.label :name, class: "block mb-1 font-medium text-gray-700" %>
+            <%= f.text_field :name, class: "w-full border rounded-lg p-2" %>
+          </div>
+
+          <div>
+            <%= f.label :phone, class: "block mb-1 font-medium text-gray-700" %>
+            <%= f.telephone_field :phone, class: "w-full border rounded-lg p-2" %>
+          </div>
+
+          <div>
+            <%= f.label :address, class: "block mb-1 font-medium text-gray-700" %>
+            <%= f.text_field :address, class: "w-full border rounded-lg p-2" %>
+          </div>
+
+          <div class="grid grid-cols-2 gap-10">
+            <div>
+              <%= f.label :password, "New Password", class: "block mb-1 font-medium text-gray-700" %>
+              <%= f.password_field :password, class: "w-full border rounded-lg p-2", autocomplete: "new-password" %>
+            </div>
+
+            <div>
+              <%= f.label :password_confirmation, "Confirm New Password", class: "block mb-1 font-medium text-gray-700" %>
+              <%= f.password_field :password_confirmation, class: "w-full border rounded-lg p-2", autocomplete: "new-password" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <%= f.submit "Save Changes", class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Manage Users -->
+    <% if current_user.superadmin? || current_user.admin? %>
+      <div data-tabs-target="content" data-tabs-name="manage_users" class="hidden">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">Manage Users</h2>
+          <% if current_user.superadmin? %>
+            <%= link_to "New User", new_user_path, class: "bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600" %>
+          <% end %>
+        </div>
+
+        <turbo-frame id="users_table">
+  <table class="min-w-full table-auto border-collapse border border-gray-300">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="text-left px-4 py-2 border">ID</th>
+        <th class="text-left px-4 py-2 border">Name</th>
+        <th class="text-left px-4 py-2 border">Email</th>
+        <th class="text-left px-4 py-2 border">Role</th>
+        <th class="text-left px-4 py-2 border">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <% next if current_user.admin? && user.superadmin? %>
+        <tr id="user_<%= user.id %>">
+          <td class="px-4 py-2 border"><%= user.id %></td>
+          <td class="px-4 py-2 border"><%= user.name %></td>
+          <td class="px-4 py-2 border"><%= user.email %></td>
+          <td class="px-4 py-2 border"><%= user.role.titleize %></td>
+          <td class="px-4 py-2 border">
+            <% if current_user.superadmin? %>
+              <%= link_to 'Edit', edit_user_path(user), class: "text-blue-500 hover:underline" %>
+              |
+              <%= link_to 'Delete', user_path(user),
+                          data: { turbo_method: :delete, turbo_confirm: "Are you sure?", turbo_frame: "users_table" },
+                          class: "text-red-500 hover:underline" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</turbo-frame>
+
+      </div>
+    <% end %>
+  </div>
+</div>

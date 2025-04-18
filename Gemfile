@@ -69,3 +69,14 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
 end
+
+group :development, :test do
+  gem 'faker'
+end
+
+gem "devise", "~> 4.9"
+gem "cancancan", "~> 3.6"
+
+gem "groupdate", "~> 6.5"
+
+gem "chartkick", "~> 5.1"

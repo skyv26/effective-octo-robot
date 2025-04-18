@@ -1,1 +1,174 @@
-<div class="text-4xl text-red-400 underline">Akash</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= content_for(:title) do %>
+    HealthHub Care
+    <% end %>
+</head>
+
+<body class="font-sans bg-gray-50">
+
+  <!-- Main Landing Page -->
+  <div class="flex flex-col">
+    <!-- Navbar (Header) -->
+    <header class="flex items-center justify-between px-4 py-3 bg-white shadow-md relative z-50">
+      <div class="flex items-center gap-2">
+        <!-- Logo (always visible) -->
+        <a href="/" class="flex items-center text-2xl gap-1 font-bold text-gray-800">
+          <div class="size-8 flex items-center justify-center rounded-md bg-[#1A5F7A]">
+            <span class="text-white">H</span>
+          </div>
+          <span class="hidden sm:inline">HealthHub</span>
+        </a>
+      </div>
+
+      <!-- Login Button / Dashboard Button -->
+      <div id="auth-buttons" class="space-x-4">
+        <% if user_signed_in? %>
+          <!-- If user is logged in, show Dashboard button -->
+            <%= link_to 'Dashboard', dashboard_path, class: 'px-6 py-2 bg-green-500 hover:bg-green-700 rounded transition ease-in-out duration-300' %>
+
+          <% else %>
+            <!-- If user is not logged in, show Login button -->
+              <%= link_to 'Login', new_user_session_path, class: 'px-6 py-2 bg-white border-blue-700 border-2 text-blue-700 cursor-pointer hover:bg-blue-700 hover:text-white rounded transition ease-in-out duration-300' %>
+
+            <% end %>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col justify-center bg-white">
+       <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-blue-100 items-center px-6 py-12 sm:px-10 md:px-20">
+        <div class="flex flex-col gap-4 w-full">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold">Healthcare Made Simple</h1>
+          <p class="text-base sm:text-lg">Streamlined solutions for medical professionals. Experience the future of healthcare management.</p>
+          <div class="bg-purple-500 font-semibold max-w-max px-5 py-2 rounded-full text-white">
+            Top-Notch Health Care, Just for you
+          </div>
+          <div class="flex flex-wrap gap-4 mt-4">
+            <strong class="flex items-center gap-2 text-sm sm:text-base">
+              <!-- HIPAA Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              HIPAA Compliant
+            </strong>
+            <strong class="flex items-center gap-2 text-sm sm:text-base">
+              <!-- ISO Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                <path d="M9 12h6" />
+                <path d="M12 9v6" />
+              </svg>
+              ISO Certified
+            </strong>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <%= image_tag "healthcare-hero-image.png", alt: "health-care", class: "max-w-full h-auto" %>
+        </div>
+      </section>
+      <section class="flex flex-col gap-14 py-16 px-6 sm:px-10 md:px-20">
+        <h2 class="text-2xl font-bold text-center">Powerful Features</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="flex flex-col items-start gap-3 bg-white w-full shadow-2xl rounded-lg p-6">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                stroke="#1447e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-calendar-days-icon lucide-calendar-days">
+                <path d="M8 2v4" />
+                <path d="M16 2v4" />
+                <rect width="18" height="18" x="3" y="4" rx="2" />
+                <path d="M3 10h18" />
+                <path d="M8 14h.01" />
+                <path d="M12 14h.01" />
+                <path d="M16 14h.01" />
+                <path d="M8 18h.01" />
+                <path d="M12 18h.01" />
+                <path d="M16 18h.01" />
+              </svg>
+            </div>
+            <strong class="text-xl">Smart Scheduling</strong>
+            <p class="text-md text-slate-500">Efficient appointment management with automated reminders</p>
+          </div>
+          <div class="flex flex-col items-start gap-3 bg-white w-full shadow-2xl rounded-lg p-6">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                stroke="#1447e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-chart-spline-icon lucide-chart-spline">
+                <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+                <path d="M7 16c.5-2 1.5-7 4-7 2 0 2 3 4 3 2.5 0 4.5-5 5-7" />
+              </svg>
+            </div>
+            <strong class="text-xl">Analytics Dashboard</strong>
+            <p class="text-md text-slate-500">Comprehensive insights into your practice performance</p>
+          </div>
+
+          <div class="flex flex-col items-start gap-3 bg-white w-full shadow-2xl rounded-lg p-6">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                stroke="#1447e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-clipboard-plus-icon lucide-clipboard-plus">
+                <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <path d="M9 14h6" />
+                <path d="M12 17v-6" />
+              </svg>
+            </div>
+            <strong class="text-xl">Patient Records</strong>
+            <p class="text-md text-slate-500">Secure electronic health records management system</p>
+          </div>
+          <div class="flex flex-col items-start gap-3 bg-white w-full shadow-2xl rounded-lg p-6">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                stroke="#1447e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-life-buoy-icon lucide-life-buoy">
+                <circle cx="12" cy="12" r="10" />
+                <path d="m4.93 4.93 4.24 4.24" />
+                <path d="m14.83 9.17 4.24-4.24" />
+                <path d="m14.83 14.83 4.24 4.24" />
+                <path d="m9.17 14.83-4.24 4.24" />
+                <circle cx="12" cy="12" r="4" />
+              </svg>
+            </div>
+            <strong class="text-xl">24/7 Support</strong>
+            <p class="text-md text-slate-500">Round-the-clock technical assistance for your team</p>
+          </div>
+      </section>
+      <section class="bg-blue-700 flex flex-col sm:flex-row items-center justify-around gap-8 p-8 py-16 text-center sm:text-left">
+        <strong class="flex flex-col text-4xl text-white">
+          10K+
+          <span class="text-base font-normal text-slate-100">Active Users</span>
+        </strong>
+        <strong class="flex flex-col text-4xl text-white">
+          200+
+          <span class="text-base font-normal text-slate-100">Healthcare Centers</span>
+        </strong>
+        <strong class="flex flex-col text-4xl text-white">
+          50K+
+          <span class="text-base font-normal text-slate-100">Appointments</span>
+        </strong>
+        <strong class="flex flex-col text-4xl text-white">
+          98%
+          <span class="text-base font-normal text-slate-100">Satisfaction Rate</span>
+        </strong>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 bg-gray-800 text-white p-4 text-center">
+      <p>&copy; 2025 HealthHub Care. Made with ♥️ by <a href="https://linkedin.com/in/skyv2022" target="_blank" class="hover:text-pink-600">Aakash Verma</a>. All rights reserved.</p>
+    </footer>
+
+  </div>
+</body>
+
+</html>
