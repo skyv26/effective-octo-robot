@@ -73,3 +73,6 @@ end
 group :development, :test do
   gem 'faker'
 end
+
+gem "devise", "~> 4.9"
+gem "cancancan", "~> 3.6"

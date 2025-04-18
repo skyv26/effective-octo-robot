@@ -29,3 +29,57 @@ genders = ['Male', 'Female', 'Other']
     avatar_url: Faker::Avatar.image(slug: Faker::Internet.slug, size: "100x100", format: "png", set: "set2")
   )
 end
+
+require 'faker'
+
+puts "Seeding users..."
+
+# Create Superadmin
+User.create!(
+  name: "Super Admin",
+  email: "superadmin@example.com",
+  password: "password",
+  role: "superadmin",
+  address: Faker::Address.full_address,
+  phone: Faker::PhoneNumber.cell_phone_in_e164,
+  designation: "Superadmin"
+)
+
+# Create Admin
+User.create!(
+  name: "Admin User",
+  email: "admin@example.com",
+  password: "password",
+  role: "admin",
+  address: Faker::Address.full_address,
+  phone: Faker::PhoneNumber.cell_phone_in_e164,
+  designation: "Admin"
+)
+
+# Create Receptionists
+3.times do
+  User.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.email,
+    password: "password",
+    role: "receptionist",
+    address: Faker::Address.full_address,
+    phone: Faker::PhoneNumber.cell_phone_in_e164,
+    designation: "Receptionist"
+  )
+end
+
+# Create Doctors
+10.times do
+  User.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.email,
+    password: "password",
+    role: "doctor",
+    address: Faker::Address.full_address,
+    phone: Faker::PhoneNumber.cell_phone_in_e164,
+    designation: "Doctor"
+  )
+end
+
+puts "Seeding completed!"

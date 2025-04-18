@@ -4,17 +4,24 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["link"]
 
-  navigate(event) {
-    event.preventDefault()
+  connect() {
+    this.setActiveLink()
 
-    // Remove active-nav from all links
-    this.linkTargets.forEach(link => link.classList.remove("active-nav"))
+    window.addEventListener("turbo:load", () => {
+      this.setActiveLink()
+    })
+  }
 
-    // Add active-nav to the clicked link
-    event.currentTarget.classList.add("active-nav")
+  setActiveLink() {
+    const currentPath = window.location.pathname
 
-    // Dynamically load the href into the turbo-frame
-    const url = event.currentTarget.getAttribute("href")
-    document.getElementById("main-content").src = url
+    this.linkTargets.forEach(link => {
+      const linkPath = new URL(link.href).pathname
+      if (linkPath === currentPath) {
+        link.classList.add("active-nav")
+      } else {
+        link.classList.remove("active-nav")
+      }
+    })
   }
 }
