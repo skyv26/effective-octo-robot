@@ -29,12 +29,12 @@
       <div id="auth-buttons" class="space-x-4">
         <% if user_signed_in? %>
           <!-- If user is logged in, show Dashboard button -->
-          <button id="dashboard-btn"
-            class="px-6 py-2 bg-green-500 hover:bg-green-700 rounded transition ease-in-out duration-300">Dashboard</button>
+            <%= link_to 'Dashboard', dashboard_path, class: 'px-6 py-2 bg-green-500 hover:bg-green-700 rounded transition ease-in-out duration-300' %>
+
           <% else %>
             <!-- If user is not logged in, show Login button -->
-            <button id="login-btn" data-action="click->login-modal#openModal"
-              class="px-6 py-2 bg-white border-blue-700 border-2 text-blue-700 cursor-pointer hover:bg-blue-700 hover:text-white rounded transition ease-in-out duration-300">Login</button>
+              <%= link_to 'Login', new_user_session_path, class: 'px-6 py-2 bg-white border-blue-700 border-2 text-blue-700 cursor-pointer hover:bg-blue-700 hover:text-white rounded transition ease-in-out duration-300' %>
+
             <% end %>
       </div>
     </header>
