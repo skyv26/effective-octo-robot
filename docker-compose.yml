@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: effective_octo_robot_production
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000:80"
+    environment:
+      DATABASE_URL: <%= ENV['DATABASE_URL'] %> 
+      RAILS_MASTER_KEY: <%= ENV['RAILS_MASTER_KEY'] %>
+    command: ./bin/rails db:prepare && ./bin/rails db:seed && ./bin/rails server -b 0.0.0.0 -p 80
+
+volumes:
+  pgdata:
