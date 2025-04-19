@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - My App</title>
+  <meta name="turbo-cache-control" content="no-cache">
+
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <%= csrf_meta_tags %>
+  
+</head>
+<!-- app/views/layouts/application.html.erb -->
+
+<body>
+  <div data-controller="sidebar" class="h-screen overflow-hidden relative flex flex-col bg-gray-50">
+    <%= turbo_frame_tag "flash" do %>
+  <% if flash[:notice] %>
+    <div class="mb-4 p-3 bg-green-100 text-green-800 rounded-md">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+<% end %>
+    <!-- Header -->
+   <header class="flex items-center justify-between px-4 py-3 bg-white shadow-md relative z-50">
+  <div class="flex items-center gap-2">
+    <!-- Logo (always visible) -->
+    <a href="/" class="flex items-center text-2xl gap-1 font-bold text-gray-800">
+      <div class="size-8 flex items-center justify-center rounded-md bg-[#1A5F7A]">
+        <span class="text-white">H</span>
+      </div>
+      <span class="hidden sm:inline">HealthHub</span>
+    </a>
+  </div>
+
+  <!-- Hamburger -->
+  <button data-action="click->sidebar#toggle" class="sm:hidden p-2" aria-label="Toggle Menu">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 transition-transform duration-200"
+      fill="none" viewBox="0 0 24 24" stroke="currentColor" data-sidebar-target="icon">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+
+<div class="flex items-center gap-4">
+  <!-- User Info & Logout -->
+  <div class="hidden sm:flex items-center gap-2">
+    <!-- User Avatar -->
+    <div class="bg-[hsl(197,65%,29%)] rounded-full size-12 flex items-center justify-center">
+  <img src="<%= current_user.photo.present? ? current_user.photo : default_avatar %>" alt="Avatar" class="w-full h-full object-cover rounded-full" />
+    </div>
+    <div class="text-base text-black font-semibold flex flex-col gap-0.5">
+      <%= current_user.name %> <!-- User's full name -->
+      <span class="text-sm font-medium text-slate-600"><%= current_user.role.capitalize %></span> <!-- User's role -->
+    </div>
+  </div>
+</div>
+</header>
+    <!-- Sidebar (desktop only) -->
+    <div class="flex flex-1 overflow-hidden">
+      <aside data-controller="navigation" class="hidden sm:flex sm:flex-col w-64 bg-white p-4">
+        <ul class="mt-4 h-full flex flex-col gap-3">
+          <li><%= link_to "Dashboard", dashboard_path, class: "block p-2 hover:bg-gray-200 rounded active-nav", data: { turbo_action: "click->navigation#navigate", navigation_target: "link" } %></li>
+          <li><%= link_to "Patients", patient_index_path, class: "block p-2 hover:bg-gray-200 rounded", data: { turbo_action: "click->navigation#navigate", navigation_target: "link" } %></li>
+          <li><%= link_to "Settings", setting_index_path, class: "block p-2 hover:bg-gray-200 rounded", data: { turbo_action: "click->navigation#navigate", navigation_target: "link" } %></li>
+          <li class="mt-auto text-center"><%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-white block p-2 w-full rounded-sm font-medium bg-red-600" %></li>
+        </ul>
+
+      </aside>
+
+
+      <!-- Main Content -->
+      <main class="flex-1 p-6 overflow-y-auto bg-slate-100">
+        <div id="main-content">
+          <%= yield %>
+        </div>
+      </main>
+    </div>
+
+    <!-- Mobile Menu (full screen overlay) -->
+    <div data-sidebar-target="menu"
+      class="fixed inset-0 z-40 bg-white transform -translate-x-full transition-transform duration-300 sm:hidden">
+      <div class="flex flex-col p-4 mt-16 gap-2 relative h-full">
+        <ul class="space-y-2 mt-4">
+          <li><%= link_to "Dashboard", dashboard_path, class: "block p-2 hover:bg-gray-200 rounded active-nav", data: { action: "click->navigation#navigate", navigation_target: "link" } %></li>
+          <li><%= link_to "Patients", patient_index_path, class: "block p-2 hover:bg-gray-200 rounded", data: { action: "click->navigation#navigate", navigation_target: "link" } %></li>
+          <li><%= link_to "Settings", setting_index_path, class: "block p-2 hover:bg-gray-200 rounded", data: { action: "click->navigation#navigate", navigation_target: "link" } %></li>
+        </ul>
+        <div class="absolute items-center flex gap-2 bottom-[calc(5rem)]">
+          <div class="bg-[#1A5F7A] rounded-full size-12 flex items-center justify-center">
+            <span class="text-white">JD</span>
+          </div>
+          <div class="text-base text-black font-semibold flex flex-col gap-0.5">
+            Jane Doe
+            <span class="text-sm font-medium text-slate-600">Receptionist</span>
+          </div>
+        </div>
+        </header>
+      </div>
+    </div>
+
+    <!-- Backdrop -->
+    <div data-sidebar-target="backdrop" data-action="click->sidebar#toggle"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 lg:hidden">
+    </div>
+  </div>
+</body>
+</html>
