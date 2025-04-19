@@ -84,6 +84,7 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
     database: effective_octo_robot_production
     username: effective_octo_robot
     password: <%= ENV["EFFECTIVE_OCTO_ROBOT_DATABASE_PASSWORD"] %>
