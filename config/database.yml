@@ -15,7 +15,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: <%= ENV['DB_HOST'] || 'localhost' %> 
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -88,7 +87,7 @@ production:
     # password: <%= ENV["EFFECTIVE_OCTO_ROBOT_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
-    database: effective_octo_robot_production_cache
+    database: <%= ENV['Redis.REDIS_URL'] || 'effective_octo_robot_production_cache' %>
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
