@@ -65,13 +65,13 @@ group :test do
 end
 
 group :development do
-  gem 'guard'
-  gem 'guard-livereload', require: false
-  gem 'rack-livereload'
+  gem "guard"
+  gem "guard-livereload", require: false
+  gem "rack-livereload"
 end
 
 group :development, :test do
-  gem 'faker'
+  gem "faker"
 end
 
 gem "devise", "~> 4.9"

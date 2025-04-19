@@ -4,7 +4,7 @@ class PatientController < ApplicationController
   def index
     @patients = Patient.all
   end
-  
+
   def show
     @patient = Patient.find(params[:id])
     render locals: { patient: @patient, readonly: true }
@@ -21,21 +21,21 @@ class PatientController < ApplicationController
     end
   end
 
-  
+
   def new
     @patient = Patient.new
   end
 
   def create
     @patient = Patient.new(patient_params)
-  
+
     if @patient.save
       redirect_to @patient, notice: "Patient created successfully."
     else
       render :new, locals: { patient: @patient, readonly: false }, status: :unprocessable_entity
     end
   end
-  
+
   def edit
     @patient = Patient.find(params[:id])
     render locals: { patient: @patient, readonly: false }
@@ -44,12 +44,12 @@ class PatientController < ApplicationController
   def destroy
     @patient = Patient.find(params[:id])
     @patient.destroy
-  
+
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.remove("patient_#{@patient.id}") }
       format.html { redirect_to patients_path, notice: "Patient deleted successfully." }
     end
-  end  
+  end
 
   private
 
@@ -60,5 +60,4 @@ class PatientController < ApplicationController
       :allergies, :emergency_contact
     )
   end
-  
 end

@@ -11,8 +11,8 @@
 
 require 'faker'
 
-blood_groups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
-genders = ['Male', 'Female', 'Other']
+blood_groups = [ 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-' ]
+genders = [ 'Male', 'Female', 'Other' ]
 
 # Create 120 patients with random dates between Jan and Apr 2025
 120.times do
@@ -89,7 +89,7 @@ User.create!(
     email: Faker::Internet.unique.email,
     password: "password",
     role: "receptionist",
-    
+
     address: Faker::Address.full_address,
     phone: Faker::PhoneNumber.cell_phone_in_e164,
     designation: "Receptionist",

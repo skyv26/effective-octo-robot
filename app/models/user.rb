@@ -9,33 +9,33 @@ class User < ApplicationRecord
 
   # Role checking methods
   def superadmin?
-    role == 'superadmin'
+    role == "superadmin"
   end
 
   def admin?
-    role == 'admin'
+    role == "admin"
   end
 
   def receptionist?
-    role == 'receptionist'
+    role == "receptionist"
   end
 
   def doctor?
-    role == 'doctor'
+    role == "doctor"
   end
 
   private
 
   def set_user_code
     prefix = case role
-             when 'admin' then 'AD'
-             when 'doctor' then 'DT'
-             when 'receptionist' then 'RP'
-             when 'superadmin' then 'SA'  # Handle superadmin role code prefix
-             else 'US'
-             end
+    when "admin" then "AD"
+    when "doctor" then "DT"
+    when "receptionist" then "RP"
+    when "superadmin" then "SA"  # Handle superadmin role code prefix
+    else "US"
+    end
 
-    timestamp = Time.zone.now.strftime('%Y%m%d%H%M%S')
+    timestamp = Time.zone.now.strftime("%Y%m%d%H%M%S")
     self.user_code = "#{prefix}-#{timestamp}-#{SecureRandom.hex(2).upcase}"
   end
 end

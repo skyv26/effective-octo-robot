@@ -5,10 +5,10 @@ class Ability
     return unless user.present?
 
     case user.role
-    when 'admin'
+    when "admin"
       can :manage, :all
       cannot :update, User, id: User.super_admin_id # Restrict altering super admin
-    when 'doctor', 'receptionist'
+    when "doctor", "receptionist"
       can :read, :dashboard
     end
   end
